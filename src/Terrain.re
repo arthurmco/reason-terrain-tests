@@ -1,43 +1,53 @@
+/* 
+ * The map is a series of quadtree.
+ * It can be a leaf node, or it can not.
+ *
+ * A leaf node have a terrain type, a non-leaf node has an array of 4 nodes.
+ */
+ type terrain_node_type = LeafNode(TerrainType.type_list) | NonLeafNode(array(terrain_block))
+
 /*
- * Represents a terrain square
+ * Represents a terrain block
  *
  * The terrain square is the basic unit of the game
- * It is, basically, a four-point object. This object has an unique terrain type
- *
+ * It is, basically, a quadtree
  * It's more easy to represent this way in an editor.
- * You will be able to subdivide the block into more blocks, or join two equal blocks
- * into one.
+ *
+ * The block can be subdivided in four pieces of equally-sized different blocks.
+ * Since we assume they will always have the same size, we record only the height.
  *
  * The smallest block you can have is a 1x1 terrain block, the value of a terrain unit
  * in the Familyline terrain file
  */
- type terrain_block = {
-    x0: (int, int), /* top left */
-    y0: (int, int), /* bottom left */
-    x1: (int, int), /* top right */
-    y1: (int, int), /* bottom right */
-
-    terrainType: TerrainType.type_list
- };
-
+and terrain_block = {
+    heights: (int, int, int, int),
+    terrainType: TerrainType.type_list,
+    terrainBlock: terrain_node_type
+}
 
 /*
- *  Represents a map structure
+ * Receives a terrain block and divides it
+ * 
+ * The parent block type will be divided to all children
+ * block types.
+ * The heights will also be calculated
+ *
+ * Returns the same block, with the children added
  */
-type map = {
-    height: int,
-    width: int,
-    author: string,
-    name: string,
-    description: string,
-};
+ let divide_block = (_parent_block) => {
 
+    _parent_block;
+ };
 
-let terrain = {
-    name: "Test terrain", height: 640, width: 400, 
-    author: "Test author", description: "Test terrain 123432"
-};
+ /*
+  * Unites all children blocks of a specified block
+  *
+  * The heights will be recalculated based on the children heights
+  * The terrain type will be the type of the top left child
+  *
+  * Returns the same block, with the children reunited
+  */
+let unite_children = (_parent_block) => {
 
-Js.log("Name: " ++ terrain.name );
-Js.log("Width: " ++ string_of_int(terrain.width) );
-Js.log("Height: " ++ string_of_int(terrain.height) );
+    _parent_block
+}
