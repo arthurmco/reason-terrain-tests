@@ -7,6 +7,5 @@ type map = {
     author: string,
     name: string,
     description: string,
-
     main_block: Terrain.terrain_block
 };

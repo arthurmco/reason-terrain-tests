@@ -20,9 +20,8 @@
  * in the Familyline terrain file
  */
 and terrain_block = {
-    heights: (int, int, int, int),
-    terrainType: TerrainType.type_list,
-    terrainBlock: terrain_node_type
+    heights: option((int, int, int, int)),
+    blockType: terrain_node_type
 }
 
 /*
