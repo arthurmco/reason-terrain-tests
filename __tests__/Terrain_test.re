@@ -50,26 +50,29 @@ let () =
             });
         });
         describe("unite a block", () => {
+            
+            let blockType = Terrain.NonLeafNode([|
+                Terrain.{
+                    heights: Some((10, 10, 15, 15)),
+                    blockType: Terrain.LeafNode(TerrainType.Sand)
+                },
+                Terrain.{
+                    heights: Some((10, 10, 15, 15)),
+                    blockType: Terrain.LeafNode(TerrainType.Sand)
+                },
+                Terrain.{
+                    heights: Some((15, 15, 20, 20)),
+                    blockType: Terrain.LeafNode(TerrainType.Sand)
+                },
+                Terrain.{
+                    heights: Some((15, 15, 20, 20)),
+                    blockType: Terrain.LeafNode(TerrainType.Sand)
+                }
+            |]);
+            
             let block = Terrain.{
                 heights: None,
-                blockType: Terrain.NonLeafNode([|
-                    Terrain.{
-                        heights: Some((10, 10, 15, 15)),
-                        blockType: Terrain.LeafNode(TerrainType.Sand)
-                    },
-                    Terrain.{
-                        heights: Some((10, 10, 15, 15)),
-                        blockType: Terrain.LeafNode(TerrainType.Sand)
-                    },
-                    Terrain.{
-                        heights: Some((15, 15, 20, 20)),
-                        blockType: Terrain.LeafNode(TerrainType.Sand)
-                    },
-                    Terrain.{
-                        heights: Some((15, 15, 20, 20)),
-                        blockType: Terrain.LeafNode(TerrainType.Sand)
-                    }
-                |])
+                blockType: blockType
             };
 
             test("check if the height is right", () => {
